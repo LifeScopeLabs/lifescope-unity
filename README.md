@@ -1,0 +1,2 @@
+# LifeScopeUnitySDK
+LifeScope Unity SDK
