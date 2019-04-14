@@ -1,26 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
-using UniRx.Async;
+// using UniRx;
+// using UniRx.Async;
+using PerspecDev; // APIBuddy;
 
 public class LogIn : MonoBehaviour
 {
+
+    public class LSAuthResponseData : APIBuddy.WebResponseData {
+        public string code;
+        public string state;
+    }
     void login()
-    {
-        public const string LSurl = "https://app.lifescope.io/auth?";
 
-        public const string clientID = "b47e68020f898a74"; 
-        public const string clientSecret = "52570d6eccc4139f315079e0f5f030a7202b42fc7f90ae02c49fac3bdf0bb762"
+    {   
+        const string LSurl = "https://app.lifescope.io/auth?";
 
-        public const string LogInurl = LSurl + "client_id=" + clientID + ;
+        const string clientID = "b47e68020f898a74"; 
+        const string clientSecret = "52570d6eccc4139f315079e0f5f030a7202b42fc7f90ae02c49fac3bdf0bb762";
+        const string redirect_uri = "";
+        const string scope = "";
+        const string response_type = "code";
 
-        var query = from LSLogin in ObservableWWW.Get(LogInurl)
-                    select new { LSLogin };
+        const string LogInurl = LSurl + "client_id=" + clientID + '&redirect_uri=' + redirect_uri +
+            '&scope=' + scope + '&response_type=' + response_type;
 
-        var cancel = query.Subscribe(x => Debug.Log(x.LSLogin.Substring(0, 100)));
+        APIBuddy.GetInstance().SendGetRequest<LSAuthResponseData>(LogInurl, 30.0f, (bool success, int statusCode, object responseObject) => {
+            if (success) {
+                LSAuthResponseData lsAuthResponseData = (LSAuthResponseData)responseObject;
+            } else {
+                _outputText = "Login failed.";
+            }
+        });
 
-        // Call Dispose is cancel downloading.
-        cancel.Dispose();
     }
 }
