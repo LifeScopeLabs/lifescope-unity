@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 // using UniRx;
@@ -23,14 +24,14 @@ public class LogIn : MonoBehaviour
         const string scope = "";
         const string response_type = "code";
 
-        const string LogInurl = LSurl + "client_id=" + clientID + '&redirect_uri=' + redirect_uri +
-            '&scope=' + scope + '&response_type=' + response_type;
+        const string LogInurl = LSurl + "client_id=" + clientID + "&redirect_uri=" + redirect_uri +
+            "&scope=" + scope + "&response_type=" + response_type;
 
-        APIBuddy.GetInstance().SendGetRequest<LSAuthResponseData>(LogInurl, 30.0f, (bool success, int statusCode, object responseObject) => {
+        APIBuddy.GetInstance().SendGetRequest<LSAuthResponseData>(LogInurl, 30.0f, (bool success, string errorMsg, int statusCode, object responseObject) => {
             if (success) {
                 LSAuthResponseData lsAuthResponseData = (LSAuthResponseData)responseObject;
             } else {
-                _outputText = "Login failed.";
+                Console.WriteLine(errorMsg);
             }
         });
 
