@@ -17,7 +17,7 @@ public class LifeScopeSDK : MonoBehaviour
         string state;
 
         public string requestURL() {
-            const string url = LSurl + "client_id=" + clientID + "&redirect_uri=" + redirect_uri +
+            string url = LSurl + "client_id=" + clientID + "&redirect_uri=" + redirect_uri +
                 "&scope=" + scope + "&response_type=" + response_type + "&state=" + state;
             return url;
         }
@@ -38,7 +38,7 @@ public class LifeScopeSDK : MonoBehaviour
         string code;
 
         public string requestURL() {
-            const string url = LSurl + "client_id=" + client_id + "&client_secret=" + client_secret +
+            string url = LSurl + "client_id=" + client_id + "&client_secret=" + client_secret +
                 "&redirect_uri=" + redirect_uri + "&code=" + code;
             return url;
         }
@@ -59,7 +59,7 @@ public class LifeScopeSDK : MonoBehaviour
         string refresh_token;
 
         public string requestURL() {
-            const string url = LSurl + "client_id=" + client_id + "&client_secret=" + client_secret +
+            string url = LSurl + "client_id=" + client_id + "&client_secret=" + client_secret +
                 "&refresh_token=" + refresh_token;
             return url;
         }
