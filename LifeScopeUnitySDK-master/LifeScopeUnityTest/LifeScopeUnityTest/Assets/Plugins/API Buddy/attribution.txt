@@ -1,0 +1,4 @@
+SimpleJSON
+Thanks to Bunny83 and oPless for writing the SimpleJSON library.
+Available for download here: http://wiki.unity3d.com/index.php/SimpleJSON
+License here: http://creativecommons.org/licenses/by-sa/3.0/
