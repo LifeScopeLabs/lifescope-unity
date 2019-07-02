@@ -10,8 +10,7 @@ const uuid = require('uuid');
 
 module.exports = async function(event, context) {
 	let sequelize;
-	let clientId = event.queryStringParameters.client_id;
-	let scopes = event.queryStringParameters.scope;
+	let scopes = event.queryStringParameters.scopes;
 	let state = '12345678';
 	
 	try {
@@ -39,6 +38,10 @@ module.exports = async function(event, context) {
 			access_code: {
 				type: Sequelize.STRING
 			},
+			created: {
+				type: Sequelize.DATE,
+				defaultValue: Sequelize.NOW
+			},
 			oauth_token: {
 				type: Sequelize.STRING
 			},
@@ -49,12 +52,20 @@ module.exports = async function(event, context) {
 			timestamps: false
 		});
 
-		let domain = url.parse(process.env.INVOKE_URL).hostname;
+		let domain = url.parse(process.env.SITE_URL).hostname;
 
 		let cookieString = 'unity_session_id=' + token + '; domain=' + domain + '; expires=' + expiration + '; secure=true; http_only=true';
-		let redirectUrl = 'https://app.lifescope.io/auth?client_id=' + clientId + '&redirect_uri=' + process.env.INVOKE_URL + '/complete&response_type=code&state=' + state + '&scope=' + scopes;
+		let redirectUrl = 'https://app.lifescope.io/auth?client_id=' + process.env.CLIENT_ID + '&redirect_uri=' + process.env.SITE_URL + '/complete&response_type=code&state=' + state + '&scope=' + scopes;
 
 		await authSessions.sync();
+
+		await authSessions.destroy({
+			where: {
+				created: {
+					$lte: moment().subtract(5, 'minutes').toDate()
+				}
+			}
+		});
 
 		await authSessions.create({
 			token: token

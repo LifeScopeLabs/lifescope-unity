@@ -54,6 +54,10 @@ module.exports = async function(event, context) {
 				access_code: {
 					type: Sequelize.STRING
 				},
+				created: {
+					type: Sequelize.DATE,
+					defaultValue: Sequelize.NOW
+				},
 				oauth_token: {
 					type: Sequelize.STRING
 				},
@@ -90,7 +94,7 @@ module.exports = async function(event, context) {
 					client_secret: process.env.CLIENT_SECRET,
 					grant_type: 'authorization_code',
 					code: code,
-					redirect_uri: process.env.INVOKE_URL + '/complete'
+					redirect_uri: process.env.SITE_URL + '/complete'
 				};
 
 				let accessTokenResponse = await request({
@@ -104,7 +108,7 @@ module.exports = async function(event, context) {
 					throw new Error(accessTokenResponse.message);
 				}
 
-				let accessCode = randomString(6, '1234567890');
+				let accessCode = await getUniqueAccessCode(authSessions);
 
 				await authSessions.update({
 					access_code: accessCode,
@@ -150,4 +154,21 @@ function randomString(length, chars) {
 	for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 	
 	return result;
+}
+
+async function getUniqueAccessCode(authSessions) {
+	let accessCode = randomString(8, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+	let result = await authSessions.findOne({
+		where: {
+			access_code: accessCode
+		}
+	});
+
+	if (result != null) {
+		return getUniqueAccessCode(authSessions);
+	}
+	else {
+		return accessCode;
+	}
 }

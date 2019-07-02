@@ -9,4 +9,4 @@ to install all of the project-wide dependencies, then go to the lambda/src/ dire
 
 `npm install`
 
-This will install all of the node_modules that are needed to build and run the demo.
+This will install all of the node_modules that are needed to build and run the backend.

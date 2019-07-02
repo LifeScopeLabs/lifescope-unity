@@ -15,12 +15,12 @@ You should be taken to the new Lambda function's settings page.
 You will need to add several Environment Variables:
 
 * CLIENT_ID (The Client ID of your LifeScope app)
-* CLIENT_SECRET (The Client Secret of your LifeScope app)
+* CLIENT_SECRET (The Client Secret of your LifeScope app - click the Show button to see it)
 * DATABASE (the database name you set for the RDS box)
 * HOST (the endpoint for the RDS box, <Box name>.<ID>.<Region>.rds.amazonaws.com)
 * PASSWORD (the password you set for the RDS box)
 * PORT (by default it’s 3306)
-* INVOKE_URL (The URL of the API gateway; this will be filled in later)
+* SITE_URL (The URL of the API gateway; this will be filled in later)
 * USER (the username you picked for the RDS box)
 
 Under Basic Settings set the timeout to 10 seconds to give the function some breathing room.
@@ -35,7 +35,7 @@ Make sure the type is ‘New API’ and the protocol is REST and then click Crea
 You should be taken to the API you just created.
 Click on the Resources link if you aren’t there already.
 Highlight the resource ‘/’ (it should be the only one present), click on the Actions dropdown and select ‘Create Resource’.
-Enter ‘create_session’ for the Resource Name, and the Resource Path should be filled in with this automatically as well, which is what we want.
+Enter ‘create_session’ for the Resource Name, and the Resource Path should be filled in with this automatically as well (with a dash instead of an underscore), which is what we want.
 Leave the checkboxes unchecked and click the Create Resource button.
 When that’s been created, click on the ‘/create_session’ resource.
 Click the Actions dropdown and select 'Create Method'.
@@ -62,9 +62,9 @@ Click on the stage you just created.
 The URL should be shown as the ‘Invoke URL’ in the top middle of the page on a blue background.
 
 You need to copy this URL into a few places.
-One is the INVOKE_URL Environment Variable in the Lambda function (don’t forget to Save the Lambda function).
-The other is as a Redirect URL in the LifeScope app you created in Step 1.
-When you've copied it into the text box, make sure to click the green '+' next to it and then click the Save App button.
+One is the SITE_URL Environment Variable in the Lambda function (don’t forget to Save the Lambda function).
+The other is as a Redirect URL in the LifeScope app you created in Step 1, with '/complete' added to the end (e.g. https://abcdefg.execute-api.us-east-1.amazonaws.com/dev/complete).
+When you've copied it into the text box and added '/complete', make sure to click the green '+' next to it and then click the Save App button.
 
 Navigate to the top level of the 'lambda' directory and run
 
@@ -101,6 +101,6 @@ Go to the Lambda function we created earlier, click on the Code tab, then for �
 Click on the Upload button that appears next to ‘Function package’ and select the .zip file in the /dist folder.
 Make sure to Save the function.
 
-If all has gone well, you should be able to go to <Invoke_URL>/create-session and, with the appropriate query parameters,
+If all has gone well, you should be able to go to <SITE_URL>/create-session and, with the appropriate query parameters,
 go through the process of obtaining a LifeScope user's OAuth token on the backend, then exchanging the access code it
 returns for the oauth token.

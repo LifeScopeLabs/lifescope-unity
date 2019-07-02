@@ -3,24 +3,18 @@
 const assert = require('assert');
 
 const Sequelize = require('sequelize');
-const _ = require('lodash');
-const cookie = require('cookie');
 
 
 module.exports = async function(event, context) {
-	let html, sequelize;
-
-	let cookies = _.get(event, 'headers.cookie', '');
-	let sessionId = cookie.parse(cookies).unity_session_id;
+	let sequelize;
 
 	let query = event.queryStringParameters || {};
 	let accessCode = query.access_code;
 
-	if (!sessionId && !accessCode || accessCode == null) {
+	if (!accessCode || accessCode == null) {
 		return {
 			statusCode: 404,
 			body: JSON.stringify({
-				sessionId: sessionId,
 				event: event,
 				cookies: cookies
 			})
@@ -49,6 +43,10 @@ module.exports = async function(event, context) {
 				access_code: {
 					type: Sequelize.STRING
 				},
+				created: {
+					type: Sequelize.DATE,
+					defaultValue: Sequelize.NOW
+				},
 				oauth_token: {
 					type: Sequelize.STRING
 				},
@@ -61,9 +59,8 @@ module.exports = async function(event, context) {
 
 			await authSessions.sync();
 
-			let session = await authSessions.find({
+			let session = await authSessions.findOne({
 				where: {
-					token: sessionId,
 					access_code: accessCode
 				}
 			});
@@ -79,7 +76,7 @@ module.exports = async function(event, context) {
 			else {
 				await authSessions.destroy({
 					where: {
-						token: sessionId
+						access_code: accessCode
 					}
 				});
 
@@ -105,5 +102,3 @@ module.exports = async function(event, context) {
 
 	}
 };
-
-//https://r4o1ekqi1d.execute-api.us-east-1.amazonaws.com/dev/create-session?client_id=e33af1dc0124dbf5&scope=events:read
