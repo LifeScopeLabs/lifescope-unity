@@ -1,0 +1,19 @@
+.separator {
+	&.horizontal {
+		width: 100%; height: 1px;
+		border-bottom: 1px solid @input-border-color;
+		margin: 1.5em 0;
+
+		& > span {
+			.no-select;
+
+			cursor: default;
+			color: @font-color-subdue;
+			font-weight: 700;
+			background-color: @item-background-color;
+			position: relative;
+			top: -9px;
+			padding: 3px 5px;
+		}
+	}
+}

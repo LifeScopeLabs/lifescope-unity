@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "assert": "^2.0.0",
+    "cookie": "^0.3.1",
+    "humanparser": "^1.1.1",
+    "lodash": "^4.6.1",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0",
+    "nunjucks": "^3.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "sequelize": "^3.30.4"
+  }
+}
