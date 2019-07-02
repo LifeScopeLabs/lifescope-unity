@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/GoogleARCore/
+Assets/GoogleARCore.meta
+Assets/PlayServicesResolver.meta
+Assets/PlayServicesResolver/
