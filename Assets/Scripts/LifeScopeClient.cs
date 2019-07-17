@@ -24,10 +24,7 @@ public class LifeScopeClient : MonoBehaviour {
     public string oauthClientId = "e33af1dc0124dbf5"; // Put your LifeScope OAuth client ID here.
     public string[] scopes = new string[] { //If you don't need a certain type of data, remove it from this list
         "basic",
-        "contacts:read",
-        "content:read",
         "events:read",
-        "locations:read",
         "people:read"
     };
 
@@ -36,7 +33,7 @@ public class LifeScopeClient : MonoBehaviour {
     private string _outputText = "";
     private string _accessCode = "";
     private string _oauthToken = "";
-    private string _userId = "";
+    private Newtonsoft.Json.Linq.JArray _people;
 
     static string _exchangeBackendUrl = "https://unity.lifescope.io"; //You should enter your own setup's exchange backend URL here.
     static HttpClient exchangeClient = new HttpClient();
@@ -46,10 +43,6 @@ public class LifeScopeClient : MonoBehaviour {
 
     public class OauthTokenResponse {
         public string oauth_token { get; set; }
-    }
-
-    private void Start() {
-
     }
 
     private async void OnGUI() {
@@ -88,31 +81,55 @@ public class LifeScopeClient : MonoBehaviour {
             }
         }
         else if (_state == "getUserData") {
-            GraphQLRequest userRequest = new GraphQLRequest{
+            GraphQLRequest peopleRequest = new GraphQLRequest{
                 Query = @"
-                {
-                    userBasic {
-                        id
+                    query personMany($filter: FilterFindManyPeopleInput, $sort: SortFindManyPeopleInput) {
+                        personMany(filter: $filter, sort: $sort) {
+                            id,
+                            avatar_url,
+                            external_avatar_url,
+                            first_name,
+                            middle_name,
+                            last_name,
+                            contact_id_strings,
+                            hidden,
+                            hydratedContacts {
+                                id,
+                                avatar_url,
+                                handle,
+                                name,
+                                hydratedConnection {
+                                    id,
+                                    provider {
+                                        id,
+                                        name
+                                    },
+                                }
+                            }
+                        }
+                    }",
+                Variables = new {
+                    sort = "last_name",
+                    filter = new {
+                        self = false
                     }
-                }"
+                }
             };
 
             graphQLClient.DefaultRequestHeaders.Add("authorization", "Bearer " + _oauthToken);
-            var graphQLResponse = await graphQLClient.PostAsync(userRequest);
+            var graphQLResponse = await graphQLClient.PostAsync(peopleRequest);
 
             if (graphQLResponse.Errors != null) {
-                Debug.Log(graphQLResponse.Errors);
+                Debug.Log(JsonConvert.SerializeObject(graphQLResponse.Errors));
             }
             else {
-                _userId = graphQLResponse.Data.userBasic.id;
-
-                Debug.Log(_userId);
+                _people = graphQLResponse.Data.personMany;
 
                 _state = "populateData";
             }
         }
         else if (_state == "populateData") {
-            GUI.TextArea(new Rect(20.0f, 20.0f, 50.0f, 50.0f), _userId);
+            GUI.TextArea(new Rect(20.0f, 20.0f, 1000.0f, 200.0f), JsonConvert.SerializeObject(_people));
         }
     }
 }
