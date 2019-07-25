@@ -1,44 +1,47 @@
-# lifescope-unity
+# **LifeScope Unity**
 
-LifeScope for Unity
+Customize your experience with real People, Places, and Things.
 
-Development tools and example Unity Apps
+Apps and Games in 3D, VR, AR
 
-## Lander at https://unity.lifescope.io
-- explains the project
-- links to the working example
-- contains the link to the token broker under that domain
+Works with Android, iOS, Windows, Mac, Magic Leap, and more!
 
-## Demos
+## **Documented Examples**
 
-### 1. Sign In, Sign Out, Call GraphQL API, & Refresh Example      
+### **1. Basic Example**
 
-- Uses OAuth 2 through a token broker system.
-  - [Setup Token Broker](https://github.com/LifeScopeLabs/lifescope-unity/tree/master/lambda/tutorial)  
-  - [Using Token Broker](https://github.com/LifeScopeLabs/lifescope-unity/blob/master/lambda/tutorial/step-5.md)
-  - Sign Out deletes the token.
-  - Refresh forces a new Sign In.
-- Call the LifeScope GraphQL API
-  - [Platform Documentation](https://lifescope.io/platform)
-  - [Schema Documentation](https://lifescope.io/schema)
-  - [GraphQL API Sandbox](https://api.lifescope.io/gql-p)
+* Learn Sign In, Sign Out, Call GraphQL API, & Refresh
+* Uses OAuth 2 through a token broker system.
+  * [Setup Token Broker](https://github.com/LifeScopeLabs/lifescope-unity/tree/master/lambda/tutorial)
+  * [Using Token Broker](https://github.com/LifeScopeLabs/lifescope-unity/blob/master/lambda/tutorial/step-5.md)
+  * Sign Out deletes the token.
+  * Refresh forces a new Sign In.
+* Call the LifeScope GraphQL API
+  * [Platform Documentation](https://lifescope.io/platform)
+  * [Schema Documentation](https://lifescope.io/schema)
+  * [GraphQL API Sandbox](https://api.lifescope.io/gql-p)
 
-### 2. People & Contacts Example
+### **2. People & Contacts Example**
 
-### 3. Locations & Events AR Mapbox Example
+[Source - People & Contacts for User Example](https://github.com/LifeScopeLabs/lifescope-unity/tree/master/Assets/Scenes)
 
-- Requires Mapbox Unity SDK / Android / iOS / ARCore / AR Kit
-- AR Tabletop https://docs.mapbox.com/unity/maps/examples/tabletop-ar/
-- Worldscale https://docs.mapbox.com/unity/maps/examples/world-scale-manual-align-ar/
+### **3. Locations & Events AR Mapbox Example**
 
-### 4. Locations & Events VR Example
+* Requires Mapbox Unity SDK / Android / iOS / ARCore / AR Kit
+* AR Tabletop [https://docs.mapbox.com/unity/maps/examples/tabletop-ar/](https://docs.mapbox.com/unity/maps/examples/tabletop-ar/)
+* Worldscale [https://docs.mapbox.com/unity/maps/examples/world-scale-manual-align-ar/](https://docs.mapbox.com/unity/maps/examples/world-scale-manual-align-ar/)
 
-- Requires Mapbox Unity SDK / Android / iOS / ARCore / AR Kit
-- 3D / VR View https://docs.mapbox.com/unity/maps/examples/city-simulator/
+### **4. Locations & Events VR Example**
 
-### Support Priority
+* Requires Mapbox Unity SDK / Android / iOS / ARCore / AR Kit
+* 3D / VR View [https://docs.mapbox.com/unity/maps/examples/city-simulator/](https://docs.mapbox.com/unity/maps/examples/city-simulator/)
 
-3D > VR > AR
+**5. Magic Leap Example**
 
+* [Demo Video](https://lifescope.io/mlvideo)
+* Source - [LifeScope Unity Magic Leap](https://github.com/LifeScopeLabs/lifescope-magicleap-unity)
 
-Android > iOS > Windows > Mac > Magic Leap
+**6. Leap Motion North Star & Occipital Polaris AR**
+
+* Source - [LifeScope Unity North Star](https://github.com/mrhegemon/lifescope-northstar-unity)
+
