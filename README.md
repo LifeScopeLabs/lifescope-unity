@@ -36,12 +36,12 @@ Works with Android, iOS, Windows, Mac, Magic Leap, and more!
 * Requires Mapbox Unity SDK / Android / iOS / ARCore / AR Kit
 * 3D / VR View [https://docs.mapbox.com/unity/maps/examples/city-simulator/](https://docs.mapbox.com/unity/maps/examples/city-simulator/)
 
-**5. Magic Leap Example**
+### **5. Magic Leap Example**
 
 * [Demo Video](https://lifescope.io/mlvideo)
 * Source - [LifeScope Unity Magic Leap](https://github.com/LifeScopeLabs/lifescope-magicleap-unity)
 
-**6. Leap Motion North Star & Occipital Polaris AR**
+### **6. Leap Motion North Star & Occipital Polaris AR**
 
 * Source - [LifeScope Unity North Star](https://github.com/mrhegemon/lifescope-northstar-unity)
 
