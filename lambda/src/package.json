@@ -9,6 +9,6 @@
     "nunjucks": "^3.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "sequelize": "^3.30.4"
+    "sequelize": "^6.3.5"
   }
 }
