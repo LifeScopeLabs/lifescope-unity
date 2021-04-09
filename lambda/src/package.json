@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "assert": "^2.0.0",
-    "cookie": "^0.3.1",
+    "cookie": "^0.4.1",
     "humanparser": "^1.1.1",
     "lodash": "^4.6.1",
     "moment": "^2.18.1",
